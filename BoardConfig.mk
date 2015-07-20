@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-PRODUCT_VENDOR_KERNEL_HEADERS := device/sony/yukon/kernel-headers
 TARGET_KERNEL_SOURCE =: kernel/sony/msm
 
 TARGET_ARCH := arm
