@@ -32,6 +32,10 @@ PRODUCT_COPY_FILES += \
     $(SONY_ROOT)/system/etc/sensors_settings:system/etc/sensors_settings \
     $(SONY_ROOT)/system/etc/gps.conf:system/etc/gps.conf
 
+# 3.4: copy bootlogo
+PRODUCT_COPY_FILES += \
+    $(SONY_ROOT)/$(DEVICE_RESOLUTION).rle:root/logo.rle
+
 # Copy extra files
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml \
