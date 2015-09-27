@@ -194,6 +194,17 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     e2fsck
 
+# DSDS specific properties
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.radio.multisim.config=dsds \
+    persist.multisim.config=dsds \
+    telephony.lteOnCdmaDevice=0 \
+    ro.telephony.default_network=0,1
+
+# DSDS second ril start script
+PRODUCT_COPY_FILES += \
+    device/sony/yukon-common/rootdir/init.class_main.sh:root/init.class_main.sh
+	
 # APN list
 PRODUCT_COPY_FILES += \
     device/sample/etc/apns-full-conf.xml:system/etc/apns-conf.xml
