@@ -70,3 +70,6 @@ persist.sys.wfd.virtual=0
 
 # Wi-Fi interface name
 wifi.interface=wlan0
+
+# Set adoptable option
+vold.has_adoptable=1
