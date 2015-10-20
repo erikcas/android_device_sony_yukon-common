@@ -350,7 +350,7 @@ service sct_service /system/vendor/bin/sct_service
     class main
 
 # Camera
-service qcamerasvr /system/vendor/bin/mm-qcamera-daemon
+service qcamerasvr /system/bin/mm-qcamera-daemon
     class late_start
     user camera
     group camera system inet input graphics
