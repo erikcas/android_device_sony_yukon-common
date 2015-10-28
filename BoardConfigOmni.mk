@@ -12,7 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Kernel
 BOARD_CUSTOM_BOOTIMG := true
+BOARD_CUSTOM_BOOTIMG_MK := device/sony/shinano-common/boot/custombootimg.mk
+BOARD_KERNEL_SEPARATED_DT := true
+TARGET_DTB_EXTRA_FLAGS := --force-v2
 
 # TWRP
 BOARD_HAS_NO_SELECT_BUTTON := true
