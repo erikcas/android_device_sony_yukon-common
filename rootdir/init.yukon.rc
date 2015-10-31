@@ -25,58 +25,24 @@ on early-init
     mkdir /persist 0771 system system
 
 on init
-    mkdir /tmp
-    mount tmpfs tmpfs /tmp nosuid mode=0755,uid=0,gid=0
-    symlink /dev/socket /tmp
-
-    mkdir /mnt/shell/emulated 0700 shell shell
-    mkdir /storage/emulated 0555 root root
-    mkdir /mnt/media_rw/sdcard1 0700 media_rw media_rw
-    mkdir /mnt/media_rw/usbdisk 0700 media_rw media_rw
-
-    export EXTERNAL_STORAGE /storage/emulated/legacy
-    export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
-    export EMULATED_STORAGE_TARGET /storage/emulated
-
-    # removable storages
-    mkdir /storage/removable 0050 system removable_rw
-
-    # secondary external storage
-    mkdir /storage/sdcard1 0700 root root
-    symlink /storage/sdcard1 /sdcard1
-    export SECONDARY_STORAGE /storage/sdcard1
-
-    # External USB mass storage support
-    mkdir /storage/usbdisk 0700 system system
-    symlink /storage/usbdisk /usbdisk
-    export EXTERNAL_STORAGE_USB /storage/usbdisk
-
-    # Support legacy paths
-    symlink /storage/emulated/legacy /sdcard
-    symlink /storage/emulated/legacy /mnt/sdcard
-    symlink /storage/emulated/legacy /storage/sdcard0
-    symlink /mnt/shell/emulated/0 /storage/emulated/legacy
-    symlink /storage/sdcard1 /storage/removable/sdcard1
-    symlink /storage/removable/sdcard1 /ext_card
-    symlink /storage/usbdisk /storage/removable/usbdisk
-
     # Support legacy libs
     symlink /system/vendor/lib/egl /egl
+
+    # BoringSSL hacks
+    export LD_PRELOAD "libboringssl-compat.so"
 
     mkdir /dev/bus 0755 root root
     mkdir /dev/bus/usb 0755 root root
 
+    # Support legacy paths
+    symlink /sdcard /mnt/sdcard
+    symlink /sdcard /storage/sdcard0
+
 on fs
     mount_all ./fstab.yukon
-    setprop ro.crypto.fuse_sdcard true
     write /sys/kernel/boot_adsp/boot 1
 
 on post-fs-data
-    # MSM specific files that need to be created on /data
-    # We will remap this as /mnt/sdcard with the sdcard fuse tool
-    mkdir /data/media 0775 media_rw media_rw
-    chown media_rw media_rw /data/media
-
     # To observe dnsmasq.leases file for dhcp information of soft ap.
     chown dhcp system /data/misc/dhcp
 
@@ -398,7 +364,7 @@ service sct_service /system/vendor/bin/sct_service
     class main
 
 # Camera
-service qcamerasvr /system/bin/mm-qcamera-daemon
+service qcamerasvr /system/vendor/bin/mm-qcamera-daemon
     class late_start
     user camera
     group camera system inet input graphics
@@ -472,20 +438,6 @@ service dhcpcd_bt-pan /system/bin/dhcpcd -BKLG
 service iprenew_bt-pan /system/bin/dhcpcd -n
     disabled
     oneshot
-
-service sdcard /system/bin/sdcard -u 1023 -g 1023 -t 4 -l /data/media /mnt/shell/emulated
-    class late_start
-
-service fuse_sdcard1 /system/bin/sdcard -u 1023 -g 1023 -w 1023 -t 4 -d /mnt/media_rw/sdcard1 /storage/sdcard1
-    class late_start
-    disabled
-
-service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 -w 1023 -t 4 -d /mnt/media_rw/usbdisk /storage/usbdisk
-    class late_start
-    disabled
-
-on property:ro.fuse_sdcard=true
-    start sdcard
 
 # BT service
 service hciattach /system/bin/sh /system/etc/init.yukon.bt.sh

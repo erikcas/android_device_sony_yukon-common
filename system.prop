@@ -99,10 +99,3 @@ ro.qti.sensors.fns=false
 ro.qti.sensors.gtap=false
 ro.qti.sensors.tap=false
 ro.qti.sensors.facing=false
-
-# simulate sdcard on /data/media
-#
-persist.fuse_sdcard=true
-
-# Activate USB OTG
-persist.sys.isUsbOtgEnabled=1

@@ -63,7 +63,6 @@ MAX_EGL_CACHE_KEY_SIZE := 12*1024
 MAX_EGL_CACHE_SIZE := 2048*1024
 OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
-BOARD_EGL_CFG := device/sony/yukon-common/rootdir/system/lib/egl/egl.cfg
 
 # Audio
 BOARD_USES_ALSA_AUDIO := true
@@ -94,12 +93,17 @@ BOARD_HAVE_BLUETOOTH_QCOM := true
 
 # GPS definitions for Qualcomm solution
 BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := $(TARGET_BOARD_PLATFORM)
+BOARD_VENDOR_QCOM_LOC_PDK_FEATURE_SET := true
 TARGET_NO_RPC := true
 
 # Charger
 BOARD_CHARGER_ENABLE_SUSPEND := true
 
 TARGET_SYSTEM_PROP := device/sony/yukon-common/system.prop
+
+# NFC
+NFC_NXP_CHIP_TYPE := PN547C2
+BOARD_NFC_HAL_SUFFIX := $(TARGET_BOARD_PLATFORM)
 
 # Include an expanded selection of fonts
 EXTENDED_FONT_FOOTPRINT := true
