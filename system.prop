@@ -74,5 +74,3 @@ wifi.interface=wlan0
 # Conceal color
 persist.vidc.dec.conceal_color=32784
 
-# Dual sim
-persist.radio.multisim.config=dsds

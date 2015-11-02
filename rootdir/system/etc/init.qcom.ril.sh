@@ -27,9 +27,12 @@
 #
 
 #
-# start ril-daemon only for targets on which radio is present
+# start ril-daemon2 only for targets on which ds modem firmare is present
 #
-multisim=`getprop persist.radio.multisim.config`
-if [ "$multisim" = "dsds" ] || [ "$multisim" = "dsda" ]; then
+firmware='/firmware/image'
+if [ ! -f ${firmware}/modem.b06 ] && [ ! -f ${firmware}/modem.b07 ] && [ ! -f ${firmware}/modem.b12 ]; then
+    setprop persist.radio.multisim.config dsds
+    setprop ro.telephony.default_network 0
+    setprop ro.product.name D2302
     start ril-daemon2
 fi
