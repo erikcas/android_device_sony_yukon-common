@@ -32,7 +32,5 @@
 firmware='/firmware/image'
 if [ ! -f ${firmware}/modem.b06 ] && [ ! -f ${firmware}/modem.b07 ] && [ ! -f ${firmware}/modem.b12 ]; then
     setprop persist.radio.multisim.config dsds
-    setprop ro.telephony.default_network 0
-    setprop ro.product.name D2302
     start ril-daemon2
 fi
