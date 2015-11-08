@@ -27,10 +27,12 @@
 #
 
 #
-# start ril-daemon2 only for targets on which ds modem firmare is present
+# start ril-daemon2 only for targets on which ds modem firmware is present
 #
 firmware='/firmware/image'
 if [ ! -f ${firmware}/modem.b10 ] && [ ! -f ${firmware}/modem.b14 ]; then
     setprop persist.radio.multisim.config dsds
+    setprop persist.radio.dont_use_dsd true
+    setprop persist.radio.plmn_name_cmp 1
     start ril-daemon2
 fi
