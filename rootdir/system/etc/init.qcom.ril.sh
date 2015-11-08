@@ -35,4 +35,6 @@ if [ ! -f ${firmware}/modem.b10 ] && [ ! -f ${firmware}/modem.b14 ]; then
     setprop persist.radio.dont_use_dsd true
     setprop persist.radio.plmn_name_cmp 1
     start ril-daemon2
+else
+    setprop persist.radio.multisim.config ""
 fi
