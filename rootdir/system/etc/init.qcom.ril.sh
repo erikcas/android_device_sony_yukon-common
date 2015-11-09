@@ -29,8 +29,14 @@
 #
 # start ril-daemon2 only for targets on which ds modem firmware is present
 #
+# D2305 (SS, no LTE) also doesn't have b10 and b14, so we'll check some file that differs in size
+
+# modem.b03
+# D2302 4,164,716B
+# D2305 4,164,772B
+
 firmware='/firmware/image'
-if [ ! -f ${firmware}/modem.b10 ] && [ ! -f ${firmware}/modem.b14 ]; then
+if [ ! -f ${firmware}/modem.b10 ] && [ ! -f ${firmware}/modem.b14 ] && [ $(wc -c < "${firmware}/modem.b03") -lt 4164772 ]; then
     setprop persist.radio.multisim.config dsds
     setprop persist.radio.dont_use_dsd true
     setprop persist.radio.plmn_name_cmp 1
