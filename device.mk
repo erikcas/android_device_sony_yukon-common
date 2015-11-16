@@ -63,6 +63,7 @@ PRODUCT_COPY_FILES += \
     $(SONY_ROOT)/system/etc/audio_effects.conf:system/vendor/etc/audio_effects.conf \
     $(SONY_ROOT)/system/etc/audio_policy.conf:system/etc/audio_policy.conf \
     $(SONY_ROOT)/system/etc/media_codecs.xml:system/etc/media_codecs.xml \
+    $(SONY_ROOT)/system/etc/media_codecs_performance.xml:system/etc/media_codecs_performance.xml \
     $(SONY_ROOT)/system/etc/media_profiles.xml:system/etc/media_profiles.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
@@ -85,12 +86,7 @@ PRODUCT_PACKAGES += \
     audio.primary.msm8226 \
     audio.r_submix.default \
     audio.usb.default \
-    libaudio-resampler \
-    libacdbloader \
-    libacdbmapper \
-    libaudcal \
-    libaudioalsa \
-    libdiag
+    libaudio-resampler
 
 # For audio.primary.msm8226
 PRODUCT_PACKAGES += \
@@ -183,9 +179,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     charger_res_images
 
+# AOSP Packages
 PRODUCT_PACKAGES += \
     InCallUI \
-    Launcher3
+    Launcher3 \
+    messaging
 
 PRODUCT_PACKAGES += \
     libemoji
@@ -217,5 +215,8 @@ $(call add-product-dex-preopt-module-config,services,--compiler-filter=speed)
 
 # Platform specific default properties
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    persist.sys.usb.config=mtp \
     persist.data.qmi.adb_logmask=0
+
+# Enable MultiWindow
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    persist.sys.debug.multi_window=true

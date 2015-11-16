@@ -103,6 +103,9 @@ BOARD_CHARGER_ENABLE_SUSPEND := true
 
 TARGET_SYSTEM_PROP := device/sony/yukon/system.prop
 
+# NFC
+NFC_NXP_CHIP_TYPE := PN547C2
+
 # Include an expanded selection of fonts
 EXTENDED_FONT_FOOTPRINT := true
 
@@ -112,3 +115,8 @@ ifeq ($(HOST_OS),linux)
 endif
 
 BUILD_KERNEL := true
+
+# SELinux
+include device/qcom/sepolicy/sepolicy.mk
+
+BOARD_SEPOLICY_DIRS += device/sony/yukon/sepolicy
