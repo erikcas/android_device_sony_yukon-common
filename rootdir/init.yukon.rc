@@ -68,7 +68,10 @@ on init
 
 on fs
     mount_all ./fstab.yukon
+    swapon_all /fstab.yukon
     setprop ro.crypto.fuse_sdcard true
+    write /proc/sys/vm/swappiness 60
+    write /proc/sys/vm/page-cluster 0
     write /sys/kernel/boot_adsp/boot 1
 
 on post-fs-data
