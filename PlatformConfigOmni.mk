@@ -1,4 +1,4 @@
-# Copyright (C) 2008 The Android Open Source Project
+# Copyright 2014 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,17 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-LOCAL_PATH:= $(call my-dir)
+include device/sony/yukon-common/PlatformConfig.mk
 
-include $(CLEAR_VARS)
+BOARD_CUSTOM_BOOTIMG_MK := device/sony/yukon-common/boot/custombootimg.mk
+TARGET_DTB_EXTRA_FLAGS := --force-v2
 
-ifeq ($(strip $(BOARD_HAS_DIM_BACKLIGHT)),true)
-LOCAL_CFLAGS += -DHAS_DIM_BACKLIGHT
-endif
+# Use device's audio_effects.conf
+TARGET_USE_DEVICE_AUDIO_EFFECTS_CONF := true
 
-LOCAL_SRC_FILES := lights.c
-LOCAL_SHARED_LIBRARIES := liblog
-LOCAL_MODULE := lights.yukon
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw
-include $(BUILD_SHARED_LIBRARY)
+# TWRP flags
+TARGET_RECOVERY_PIXEL_FORMAT := "RGB_565"
+TW_THEME := portrait_hdpi
+TW_HAS_NO_RECOVERY_PARTITION := true
+TW_DEFAULT_EXTERNAL_STORAGE := true
+TW_NO_USB_STORAGE := true
